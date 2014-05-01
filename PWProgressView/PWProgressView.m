@@ -58,7 +58,6 @@ static const CFTimeInterval PWScaleAnimationDuration    = 0.5;
 - (void)layoutSubviews
 {
     [super layoutSubviews];
-    
     CGFloat centerHoleInset     = PWCenterHoleInsetRatio * CGRectGetWidth(self.bounds);
     CGFloat progressShapeInset  = PWProgressShapeInsetRatio * CGRectGetWidth(self.bounds);
     
@@ -119,6 +118,7 @@ static const CFTimeInterval PWScaleAnimationDuration    = 0.5;
             scaleAnimation.removedOnCompletion = NO;
             scaleAnimation.autoreverses = NO;
             scaleAnimation.fillMode = kCAFillModeForwards;
+            scaleAnimation.delegate = self;
             [self.boxShape addAnimation:scaleAnimation forKey:@"transform.scale"];
         }
     }
@@ -130,6 +130,11 @@ static const CFTimeInterval PWScaleAnimationDuration    = 0.5;
     pinnedProgress = MIN(1.0f, pinnedProgress);
     
     return pinnedProgress;
+}
+
+- (void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag
+{
+    [self.delegate didCompleteProgressView: self];
 }
 
 @end

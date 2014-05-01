@@ -8,8 +8,17 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol PWProgressViewDelegate;
+
 @interface PWProgressView : UIView
 
 @property (nonatomic, assign) float progress;
+@property (nonatomic, weak) id<PWProgressViewDelegate> delegate;
+
+@end
+
+@protocol PWProgressViewDelegate <NSObject>
+
+- (void)didCompleteProgressView:(PWProgressView *)progressView;
 
 @end
