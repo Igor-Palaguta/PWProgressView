@@ -134,6 +134,7 @@ static const CFTimeInterval PWScaleAnimationDuration    = 0.5;
 
 - (void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag
 {
+    [self.boxShape removeAnimationForKey: @"transform.scale"];
     [self.delegate didCompleteProgressView: self];
 }
 
